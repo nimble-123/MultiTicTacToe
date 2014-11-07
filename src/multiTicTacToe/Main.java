@@ -21,6 +21,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        log.info("Started App");
+        Board mBoard = new Board(3);
+
         launch(args);
 
     }
