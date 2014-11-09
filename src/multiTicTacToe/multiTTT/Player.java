@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 public class Player {
     private static final Logger log = Logger.getLogger(Player.class.getName());
 
-    enum sign {X, O}
-    private static sign mSign;
+    private enum sign {X, O}
+    private sign mSign;
 
     public Player() {
         mSign = sign.X; //First player is always X
@@ -21,13 +21,20 @@ public class Player {
      */
     public void nextPlayer() {
         mSign = (mSign == sign.X) ? sign.O : sign.X;
-        log.info("Switched Player to " + getSign());
+        log.info("Switched Player to " + getSignAsChar());
+    }
+
+    /**
+     * @return sign X or O from enum sign {X, O}
+     */
+    public sign getSign() {
+        return mSign;
     }
 
     /**
      * @return char X or O
      */
-    public char getSign() {
+    public char getSignAsChar() {
         return (mSign == sign.X) ? 'X' : 'O';
     }
 }

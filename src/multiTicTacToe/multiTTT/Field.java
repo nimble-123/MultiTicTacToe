@@ -8,19 +8,19 @@ import java.util.logging.Logger;
 public class Field {
     private static final Logger log = Logger.getLogger(Field.class.getName());
 
-    public enum state {OPEN, XWON, OWON, DRAW}
+    private enum state {OPEN, X, O, DRAW}
     private static state mState;
-    private char[][] mCoords;
+    private char[][] mField;
     private int mBoardIndex;
 
-    public Field(int size, int mBoardIndex) {
-        this.mBoardIndex = mBoardIndex;
-        this.mState  = state.OPEN;
-        this.mCoords = new char[size + 1][size + 1];
+    public Field(int size, int BoardIndex) {
+        mBoardIndex = BoardIndex;
+        mState  = state.OPEN;
+        mField = new char[size + 1][size + 1];
 
         for (int row = 1; row <= size; row++) {
             for (int col = 1; col <= size; col++) {
-                mCoords[row][col] = '-';
+                mField[row][col] = '-';
             }
         }
         log.info("Created Field");
@@ -32,8 +32,8 @@ public class Field {
      * @param y
      */
     public void setMove(char sign, int x, int y) {
-        mCoords[x][y] = sign;
-        log.info("Set Move @[" + x + "][" + y + "] on Field " + this.getBoardIndex());
+        mField[x][y] = sign;
+        log.info("Set Move @[" + x + "][" + y + "] on Field " + getBoardIndex());
     }
 
     /**
@@ -43,12 +43,18 @@ public class Field {
         return mState;
     }
 
+    /**
+     * @return int Board Index of field
+     */
     public int getBoardIndex() {
         return mBoardIndex;
     }
 
-    public char[][] getCoords() {
-        return mCoords;
+    /**
+     * @return char[][] the field it self as a 2D char array
+     */
+    public char[][] getField() {
+        return mField;
     }
 
     /**
@@ -65,8 +71,8 @@ public class Field {
      * Check board for winner
      */
     public boolean isWon() {
-        //TODO alle Reihen checken if mCoords[1][1,2,3] == 'X'...
-        //TODO alle Spalten checken if mCoords[1,2,3][1] == 'X'...
+        //TODO alle Reihen checken if mField[1][1,2,3] == 'X'...
+        //TODO alle Spalten checken if mField[1,2,3][1] == 'X'...
         //TODO beide Diagonale checken
         //TODO bei Erfolg TRUE als Rückgabe
 
@@ -78,10 +84,10 @@ public class Field {
      * @param field
      */
     public void display() {
-        for (int i = 0; i < this.getCoords().length; i++) {
+        for (int i = 0; i < getField().length; i++) {
             System.out.print("|");
-            for (int j = 0; j < this.getCoords().length; j++) {
-                System.out.print(" " + this.getCoords()[i][j] + " |");
+            for (int j = 0; j < getField().length; j++) {
+                System.out.print(" " + getField()[i][j] + " |");
             }
             System.out.println();
         }

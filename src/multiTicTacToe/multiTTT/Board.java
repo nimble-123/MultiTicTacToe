@@ -12,10 +12,11 @@ public class Board {
     private Field mLastMoveField;
 
     public Board(int size) {
-        this.mBoard = new Field[(size * size) + 1];
+        mBoard = new Field[(size * size) + 1];
         for (int i = 1; i <= (size * size); i++) {
             mBoard[i] = new Field(size, i);
         }
+        log.info("Created Board");
     }
 
     /**
@@ -23,20 +24,20 @@ public class Board {
      * @return Field
      */
     public Field getField(int pos) {
-        return this.mBoard[pos];
+        return mBoard[pos];
     }
 
     /**
      * @return Field[] the board, fields are 1-9
      */
     public Field[] getBoard() {
-        return this.mBoard;
+        return mBoard;
     }
 
     /**
      * @return boolean True wenn der Zug erfolgreich gesetzt wurde, sonst False
      */
-    public boolean setMove(Player pl) {
+    public boolean setMove(Player pl, int x, int y) {
         //TODO Player abfrage
         //TODO Aktuelles Feld entscheiden anhand des zuletzt bespielten Felds inkl. Coords
         //TODO Zug auf Feld setzen
