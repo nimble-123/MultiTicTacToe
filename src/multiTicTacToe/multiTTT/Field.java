@@ -84,10 +84,10 @@ public class Field {
      * @param field
      */
     public void display() {
-        for (int i = 0; i < getField().length; i++) {
+        for (int i = 0; i < mField.length; i++) {
             System.out.print("|");
-            for (int j = 0; j < getField().length; j++) {
-                System.out.print(" " + getField()[i][j] + " |");
+            for (int j = 0; j < mField.length; j++) {
+                System.out.print(" " + mField[i][j] + " |");
             }
             System.out.println();
         }
