@@ -3,47 +3,69 @@ package multiTicTacToe.multiTTT;
 import java.util.logging.Logger;
 
 /**
- * Created by nlsltz on 09.11.14.
+ * Field class to hold nine fields represent one tictactoe board
  */
 public class Field {
     private static final Logger log = Logger.getLogger(Field.class.getName());
 
-    private enum state {OPEN, X, O, DRAW}
-    private static state mState;
-    private char[][] mField;
+    /**
+     * Sign of the whole field
+     */
+    private char mSign;
+
+    /**
+     * Array to hold the fields
+     */
+    private char[] mField;
+
+    /**
+     * Integer to hold the board index
+     */
     private int mBoardIndex;
 
-    public Field(int size, int BoardIndex) {
-        mBoardIndex = BoardIndex;
-        mState  = state.OPEN;
-        mField = new char[size + 1][size + 1];
-
-        for (int row = 1; row <= size; row++) {
-            for (int col = 1; col <= size; col++) {
-                mField[row][col] = '-';
-            }
+    /**
+     * Constructor of Field
+     * @param size size of field
+     * @param boardIndex position in board
+     */
+    public Field(int size, int boardIndex) {
+        mBoardIndex = boardIndex;
+        mField = new char[(size * size) + 1];
+        mSign = '-';
+        for (int i = 1; i <= (size * size); i++) {
+                mField[i] = '-';
         }
         log.info("Created Field");
     }
 
     /**
-     * @param field
-     * @param x
-     * @param y
+     * Set a move on position
+     * @param pl Player instance
+     * @param pos position on field, left-to-right, row-by-row
      */
-    public void setMove(char sign, int x, int y) {
-        mField[x][y] = sign;
-        log.info("Set Move @[" + x + "][" + y + "] on Field " + getBoardIndex());
+    public boolean setMove(Player pl, int pos) {
+        if (!isSet(pos)) {
+            mField[pos] = pl.getSign();
+            pl.nextPlayer();
+            log.info("Set Move at position " + pos + " on field " + getBoardIndex());
+            return true;
+        } else {
+            log.warning("Move not allowed. Position already played");
+        }
+
+        return false;
     }
 
     /**
-     * @return mState
+     * Get sign of field
+     * @return char X, O, D or -
      */
-    public state getState() {
-        return mState;
+    public char getSign() {
+        return mSign;
     }
 
     /**
+     * Get board index
      * @return int Board Index of field
      */
     public int getBoardIndex() {
@@ -51,48 +73,76 @@ public class Field {
     }
 
     /**
-     * @return char[][] the field it self as a 2D char array
-     */
-    public char[][] getField() {
-        return mField;
-    }
-
-    /**
      * Check if given position in field is already played
+     * @param pos 1-9
      */
-    public boolean isSet(int x, int y) {
-        //TODO check ob an x,y schon ein Spielerzeichen ist oder noch der '-'
-        //TODO bei Erfolg TRUE als Rückgabe
-
-        return false;
+    public boolean isSet(int pos) {
+        return (mField[pos] == 'X' || mField[pos] == 'O');
     }
 
     /**
      * Check board for winner
+     * @param pl Player
      */
-    public boolean isWon() {
-        //TODO alle Reihen checken if mField[1][1,2,3] == 'X'...
-        //TODO alle Spalten checken if mField[1,2,3][1] == 'X'...
-        //TODO beide Diagonale checken
-        //TODO bei Erfolg TRUE als Rückgabe
+    public boolean isWon(Player pl) {
+        char sign = pl.getSign();
+        if (mField[1] == sign && mField[2] == sign && mField[3] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[4] == sign && mField[5] == sign && mField[6] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[7] == sign && mField[8] == sign && mField[9] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[1] == sign && mField[4] == sign && mField[7] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[2] == sign && mField[5] == sign && mField[8] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[3] == sign && mField[6] == sign && mField[9] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[1] == sign && mField[5] == sign && mField[9] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
+        if (mField[3] == sign && mField[5] == sign && mField[7] == sign) {
+            mSign = sign;
+            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+            return true;
+        }
 
         return false;
     }
 
     /**
      * Only for testing purposes
-     * @param field
      */
     public void display() {
-        for (int i = 0; i < mField.length; i++) {
-            System.out.print("|");
-            for (int j = 0; j < mField.length; j++) {
-                System.out.print(" " + mField[i][j] + " |");
+        for (int i = 1; i <= mField.length; i++) {
+            System.out.print("| ");
+            System.out.print(mField[i]);
+            System.out.print(" |");
+            if (i % 3 == 0) {
+                System.out.println();
             }
-            System.out.println();
         }
-        System.out.println(getState());
+        System.out.println(getSign());
         log.info("Displayed Field " + mBoardIndex);
     }
-
 }

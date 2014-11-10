@@ -3,14 +3,25 @@ package multiTicTacToe.multiTTT;
 import java.util.logging.Logger;
 
 /**
- * Created by nlsltz on 09.11.14.
+ * Board class to hold nine fields represents a multitictactoe
  */
 public class Board {
     private static final Logger log = Logger.getLogger(Board.class.getName());
 
+    /**
+     * Array to hold the seperate fields
+     */
     private Field[] mBoard;
-    private Field mLastMoveField;
 
+    /**
+     * Integer to save the next field position
+     */
+    private int mNextFieldPos;
+
+    /**
+     * Constructor for Board
+     * @param size Size of board
+     */
     public Board(int size) {
         mBoard = new Field[(size * size) + 1];
         for (int i = 1; i <= (size * size); i++) {
@@ -20,7 +31,8 @@ public class Board {
     }
 
     /**
-     * @param pos The place in the board. TL, TM, TR, ML, MM, MR, BL, BM, BR
+     * Get a specific field from the board through index
+     * @param pos 1-9
      * @return Field
      */
     public Field getField(int pos) {
@@ -28,41 +40,74 @@ public class Board {
     }
 
     /**
-     * @return Field[] the board, fields are 1-9
+     * Get next field position
+     * @return int Position of next playable field
      */
-    public Field[] getBoard() {
-        return mBoard;
+    public int getNextFieldPos() {
+        return mNextFieldPos;
     }
 
     /**
+     * Set a move to the field on board
+     * @param pl Player instance
+     * @param fieldpos field position on the board (1-9)
+     * @param pos field position on the field
      * @return boolean True wenn der Zug erfolgreich gesetzt wurde, sonst False
      */
-    public boolean setMove(Player pl, int x, int y) {
-        //TODO Player abfrage
-        //TODO Aktuelles Feld entscheiden anhand des zuletzt bespielten Felds inkl. Coords
-        //TODO Zug auf Feld setzen
-        //TODO beim setzen das Feld auf dem gesetzt wird in mLastMoveField mitspeichern
-        //TODO bei Erfolg TRUE zurück
-
-        pl.nextPlayer(); // als letzte Aktion wird der Spieler geswitched
+    public boolean setMove(Player pl, int fieldpos, int pos) {
+        if (mNextFieldPos == 0) {
+            mNextFieldPos = fieldpos;
+        }
+        if (fieldpos != mNextFieldPos) {
+            log.warning("Move not allowed. Move has to be in Field " + mNextFieldPos);
+            return false;
+        } else if (mBoard[fieldpos].setMove(pl, pos)) {
+            mNextFieldPos = pos;
+            return true;
+        }
 
         return false;
     }
 
     /**
      * Check board for winner
+     * @param pl Player instance
      */
-    public void isWon() {
-        // check jedes feld auslösen
-//        mBoard.getField(1).checkWin();
-//        mBoard.getField(2).checkWin();
-//        mBoard.getField(3).checkWin();
-//        mBoard.getField(4).checkWin();
-//        mBoard.getField(5).checkWin();
-//        mBoard.getField(6).checkWin();
-//        mBoard.getField(7).checkWin();
-//        mBoard.getField(8).checkWin();
-//        mBoard.getField(9).checkWin();
+    public boolean isWon(Player pl) {
+        char sign = pl.getSign();
+        if (mBoard[1].getSign() == sign && mBoard[2].getSign() == sign && mBoard[3].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[4].getSign() == sign && mBoard[5].getSign() == sign && mBoard[6].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[7].getSign() == sign && mBoard[8].getSign() == sign && mBoard[9].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[1].getSign() == sign && mBoard[4].getSign() == sign && mBoard[7].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[2].getSign() == sign && mBoard[5].getSign() == sign && mBoard[8].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[3].getSign() == sign && mBoard[6].getSign() == sign && mBoard[9].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[1].getSign() == sign && mBoard[5].getSign() == sign && mBoard[9].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
+        if (mBoard[3].getSign() == sign && mBoard[5].getSign() == sign && mBoard[7].getSign() == sign) {
+            log.info("Game is won by Player " + sign);
+            return true;
+        }
 
+        return false;
     }
 }
