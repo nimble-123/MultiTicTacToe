@@ -45,8 +45,7 @@ public class Field {
      */
     public boolean setMove(Player pl, int pos) {
         if (!isSet(pos)) {
-            mField[pos] = pl.getSign();
-            pl.nextPlayer();
+            mField[pos] = pl.getPlayer();
             log.info("Set Move at position " + pos + " on field " + getBoardIndex());
             return true;
         } else {
@@ -84,46 +83,46 @@ public class Field {
      * Check board for winner
      * @param pl Player
      */
-    public boolean isWon(Player pl) {
-        char sign = pl.getSign();
-        if (mField[1] == sign && mField[2] == sign && mField[3] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+    public boolean isWon(char player) {
+        //TODO cooler als das hier
+        if (mField[1] == player && mField[2] == player && mField[3] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[4] == sign && mField[5] == sign && mField[6] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[4] == player && mField[5] == player && mField[6] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[7] == sign && mField[8] == sign && mField[9] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[7] == player && mField[8] == player && mField[9] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[1] == sign && mField[4] == sign && mField[7] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[1] == player && mField[4] == player && mField[7] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[2] == sign && mField[5] == sign && mField[8] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[2] == player && mField[5] == player && mField[8] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[3] == sign && mField[6] == sign && mField[9] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[3] == player && mField[6] == player && mField[9] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[1] == sign && mField[5] == sign && mField[9] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[1] == player && mField[5] == player && mField[9] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
-        if (mField[3] == sign && mField[5] == sign && mField[7] == sign) {
-            mSign = sign;
-            log.info("Field " + mBoardIndex + " is won by Player " + sign);
+        if (mField[3] == player && mField[5] == player && mField[7] == player) {
+            mSign = player;
+            log.info("Field " + mBoardIndex + " is won by Player " + player);
             return true;
         }
 

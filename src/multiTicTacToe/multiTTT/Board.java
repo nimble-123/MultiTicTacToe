@@ -55,14 +55,12 @@ public class Board {
      * @return boolean True wenn der Zug erfolgreich gesetzt wurde, sonst False
      */
     public boolean setMove(Player pl, int fieldpos, int pos) {
-        if (mNextFieldPos == 0) {
-            mNextFieldPos = fieldpos;
-        }
-        if (fieldpos != mNextFieldPos) {
-            log.warning("Move not allowed. Move has to be in Field " + mNextFieldPos);
-            return false;
-        } else if (mBoard[fieldpos].setMove(pl, pos)) {
+        if (mBoard[fieldpos].setMove(pl, pos)) {
             mNextFieldPos = pos;
+            if (mBoard[fieldpos].isWon(pl.getPlayer()) || mBoard[fieldpos].isWon(pl.getLastPlayer())) {
+                mNextFieldPos = 0;
+            }
+            pl.nextPlayer();
             return true;
         }
 
@@ -73,38 +71,38 @@ public class Board {
      * Check board for winner
      * @param pl Player instance
      */
-    public boolean isWon(Player pl) {
-        char sign = pl.getSign();
-        if (mBoard[1].getSign() == sign && mBoard[2].getSign() == sign && mBoard[3].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+    public boolean isWon(char player) {
+        //TODO cooler als das hier
+        if (mBoard[1].getSign() == player && mBoard[2].getSign() == player && mBoard[3].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[4].getSign() == sign && mBoard[5].getSign() == sign && mBoard[6].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[4].getSign() == player && mBoard[5].getSign() == player && mBoard[6].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[7].getSign() == sign && mBoard[8].getSign() == sign && mBoard[9].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[7].getSign() == player && mBoard[8].getSign() == player && mBoard[9].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[1].getSign() == sign && mBoard[4].getSign() == sign && mBoard[7].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[1].getSign() == player && mBoard[4].getSign() == player && mBoard[7].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[2].getSign() == sign && mBoard[5].getSign() == sign && mBoard[8].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[2].getSign() == player && mBoard[5].getSign() == player && mBoard[8].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[3].getSign() == sign && mBoard[6].getSign() == sign && mBoard[9].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[3].getSign() == player && mBoard[6].getSign() == player && mBoard[9].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[1].getSign() == sign && mBoard[5].getSign() == sign && mBoard[9].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[1].getSign() == player && mBoard[5].getSign() == player && mBoard[9].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
-        if (mBoard[3].getSign() == sign && mBoard[5].getSign() == sign && mBoard[7].getSign() == sign) {
-            log.info("Game is won by Player " + sign);
+        if (mBoard[3].getSign() == player && mBoard[5].getSign() == player && mBoard[7].getSign() == player) {
+            log.info("Game is won by Player " + player);
             return true;
         }
 

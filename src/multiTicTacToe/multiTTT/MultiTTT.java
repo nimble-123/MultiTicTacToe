@@ -45,12 +45,12 @@ public class MultiTTT {
         Scanner sc = new Scanner(System.in);
         int nfp = 0;
         log.info("NFP is " + nfp);
-        while (!mBoard.isWon(mPlayer)) {
+        while (!mBoard.isWon(mPlayer.getPlayer()) && !mBoard.isWon(mPlayer.getLastPlayer())) {
             log.info("NFP is " + nfp);
             System.out.println();
             System.out.println();
-            System.out.println("Player " + mPlayer.getSign() + " ist dran!");
-            if (mBoard.getNextFieldPos() == 0 || mBoard.getField(mBoard.getNextFieldPos()).isWon(mPlayer)) {
+            System.out.println("Player " + mPlayer.getPlayer() + " ist dran!");
+            if (mBoard.getNextFieldPos() == 0) {
                 System.out.println("Freie Feld wahl!!!");
                 System.out.print("Bitte geben Sie ihr zu spielendes Feld ein: ");
                 int answer1 = sc.nextInt();
@@ -65,5 +65,6 @@ public class MultiTTT {
             }
             nfp = mBoard.getNextFieldPos();
         }
+        System.out.println("Game is won by Player " + mPlayer.getPlayer() + "!!!");
     }
 }

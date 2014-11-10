@@ -12,13 +12,34 @@ public class Player {
      * Sign of player
      */
     private char mSign;
+    /**
+     * Last player
+     */
+    private char mLastPlayer;
 
     /**
      * Constructor for Player
      */
     public Player() {
-        mSign = 'X'; //First player is always X
+        mSign = 'X';
+        mLastPlayer = 'O';
         log.info("Created Player");
+    }
+
+    /**
+     * Get sign of player
+     * @return char X or O
+     */
+    public char getPlayer() {
+        return mSign;
+    }
+
+    /**
+     * Get last player
+     * @return char the last player
+     */
+    public char getLastPlayer() {
+        return mLastPlayer;
     }
 
     /**
@@ -26,14 +47,7 @@ public class Player {
      */
     public void nextPlayer() {
         mSign = (mSign == 'X') ? 'O' : 'X';
+        mLastPlayer = (mLastPlayer == 'X') ? 'O' : 'X';
         log.info("Switched Player to " + mSign);
-    }
-
-    /**
-     * Get sign of player
-     * @return char X or O
-     */
-    public char getSign() {
-        return mSign;
     }
 }
