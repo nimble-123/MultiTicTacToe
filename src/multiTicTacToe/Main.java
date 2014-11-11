@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import multiTicTacToe.multiTTT.MultiTTT;
+import multiTicTacToe.multiTTT.test;
 
 import java.util.logging.Logger;
 
